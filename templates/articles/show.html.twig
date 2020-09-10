@@ -1,0 +1,44 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block left_sidebar %}
+{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'articles' }
+    )) }}
+{% endblock %}
+
+{% block page %} 
+    <h1>Publication</h1>
+
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th>Publié le</th>
+                <td>{{ article.createdAt ? article.createdAt | localizeddate('none', 'none', locale(), null, 'EEEE d MMMM Y') : '' }}</td>
+            </tr>
+
+            <tr>
+                <th>Dans la règion de</th>
+                <td>{{ article.categories|map(c => c.name)|join(', ') }} </td>
+            </tr>
+            
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ vich_uploader_asset(article) ? vich_uploader_asset(article) | imagine_filter('pub') : ''}}" alt="" srcset=""></td>
+            </tr>
+            
+            <tr>
+                <th>Contenu</th>
+                <td>{{ article.content|raw }}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <a href="{{ path('articles_index') }}">Retour à la liste</a>
+
+    {{ include('articles/_delete_form.html.twig') }}
+{% endblock %}

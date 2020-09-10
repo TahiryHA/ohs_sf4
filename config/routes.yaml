@@ -1,0 +1,5 @@
+index:
+  path:
+    fr: /
+    en: /en
+  controller: App\Controller\DefaultController::index

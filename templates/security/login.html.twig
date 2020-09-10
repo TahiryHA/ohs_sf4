@@ -1,0 +1,73 @@
+{% extends "remark.html.twig" %}
+{% block js %}
+
+	<link rel="stylesheet" href="{{asset('remark/assets/examples/css/pages/login-v3.css')}}">
+	
+{% endblock %}
+
+{% block className %}
+animsition page-login-v3 layout-full
+{% endblock %}
+
+{% block pages %}
+
+
+ <!-- Page -->
+    <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">>
+      <div class="page-content vertical-align-middle animation-slide-top animation-duration-1">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="brand">
+              {# <img class="brand-img" src="../../assets//images/logo-colored.png" alt="..."> #}
+              <h2 class="brand-text font-size-18">{{App.name}}</h2>
+            </div>
+            <form method="post" action="#">
+            {% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		  {% endif %}
+              <div class="form-group form-material floating" data-plugin="formMaterial">
+                <input type="text" class="form-control" name="username" />
+                <label class="floating-label">Username</label>
+              </div>
+              <div class="form-group form-material floating" data-plugin="formMaterial">
+                <input type="password" class="form-control" name="password" />
+                <label class="floating-label">Password</label>
+              </div>
+              {# <div class="form-group clearfix">
+                <div class="checkbox-custom checkbox-inline checkbox-primary checkbox-lg float-left">
+                  <input type="checkbox" id="inputCheckbox" name="remember">
+                  <label for="inputCheckbox">Remember me</label>
+                </div>
+                <a class="float-right" href="forgot-password.html">Forgot password?</a>
+              </div> #}
+			      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+              <button type="submit" class="btn btn-primary btn-block btn-lg mt-40">Sign in</button>
+            </form>
+            <p>Still no account? Please go to <a href="{{path('app_register')}}">Sign up</a></p>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+    <!-- End Page -->
+
+	<!-- End Page -->
+{% endblock %}
+{% block javascript %}
+	<script src="{{asset('global/js/Plugin/jquery-placeholder.js')}}"></script>
+        <script src="{{asset('global/js/Plugin/material.js')}}"></script>
+    
+    <script>
+      (function(document, window, $){
+        'use strict';
+    
+        var Site = window.Site;
+        $(document).ready(function(){
+          Site.run();
+        });
+      })(document, window, jQuery);
+    </script>
+{% endblock %}
+
