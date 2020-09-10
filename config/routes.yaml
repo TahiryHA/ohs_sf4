@@ -3,3 +3,9 @@ index:
     fr: /
     en: /en
   controller: App\Controller\DefaultController::index
+
+annonce_show:
+  path:
+    fr: /{id}/annonce
+    en: /{id}/annonce
+  controller: App\Controller\DefaultController::annonce_show
