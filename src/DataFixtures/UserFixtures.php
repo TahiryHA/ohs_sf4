@@ -48,8 +48,8 @@ class UserFixtures extends Fixture
     public function getUsers(): array
     {
         return [
-            ['hasina', '123456', ['ROLE_ADMIN']],
-            ['tahiry', '123456', ['ROLE_USER']]
+            ['root', 'admin', ['ROLE_ADMIN']],
+            ['maeva', 'maeva', ['ROLE_USER']]
         ];
     }
 }
