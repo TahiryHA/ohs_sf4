@@ -1,5 +1,5 @@
-{% set in_create = ['new-categorie', 'new-user', 'new-article'] %}
-{% set in_settings = ['setting-users'] %}
+{% set in_create = ['new-categorie', 'new-user', 'new-article','new-gallery','new-slider'] %}
+{% set in_settings = ['setting-users','setting-parameter'] %}
 <div class="site-menubar">
 	<div class="site-menubar-body">
 		<div>
@@ -106,12 +106,12 @@
 							<span class="site-menu-arrow"></span>
 						</a>
 						<ul class="site-menu-sub">
-							<li class="site-menu-item {% if active in in_settings %}active{% endif %}">
+							<li class="site-menu-item {% if active == "setting-parameter" %}active{% endif %}">
 								<a class="animsition-link" href="{{ path('parameter_index') }}">
 									<span class="site-menu-title">Variables</span>
 								</a>
 							</li>
-							<li class="site-menu-item {% if active in in_settings %}active{% endif %}">
+							<li class="site-menu-item {% if active == "setting-users" %}active{% endif %}">
 								<a class="animsition-link" href="{{ path('admin_users_setting') }}">
 									<span class="site-menu-title">Utilisateurs</span>
 								</a>

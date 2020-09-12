@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
+use App\Repository\ParameterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/new", name="contact_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ParameterRepository $repo): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -44,9 +45,11 @@ class ContactController extends AbstractController
             return $this->redirectToRoute('index');
         }
 
-        return $this->render('contact/_form.html.twig', [
+        return $this->render('contact/new.html.twig', [
             'contact' => $contact,
+            'data' => $repo->getParameter(),
             'form' => $form->createView(),
+            'active' => 'contact'
         ]);
     }
 

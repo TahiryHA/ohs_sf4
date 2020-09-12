@@ -3,9 +3,64 @@
 {% block title %}New Contact{% endblock %}
 
 {% block body %}
-    <h1>Create new Contact</h1>
 
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+            <h1 class="mb-2 bread">Nous contacter</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Acceuil <i class="ion-ios-arrow-forward"></i></a></span> <span>Contact <i class="ion-ios-arrow-forward"></i></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section contact-section">
+      <div class="container">
+        <div class="row d-flex mb-5 contact-info">
+          <div class="col-md-3 d-flex">
+          	<div class="bg-light align-self-stretch box p-4 text-center">
+          		<h3 class="mb-4">Adresse</h3>
+	            <p>{{data.address}}</p>
+	          </div>
+          </div>
+          <div class="col-md-3 d-flex">
+          	<div class="bg-light align-self-stretch box p-4 text-center">
+          		<h3 class="mb-4">Numéro de contact</h3>
+	            <p><a href="tel://1234567920">{{data.phone}}</a></p>
+	          </div>
+          </div>
+          <div class="col-md-3 d-flex">
+          	<div class="bg-light align-self-stretch box p-4 text-center">
+          		<h3 class="mb-4">Adresse email</h3>
+	            <p><a href="mailto:info@yoursite.com">{{data.email}}</a></p>
+	          </div>
+          </div>
+          <div class="col-md-3 d-flex">
+          	<div class="bg-light align-self-stretch box p-4 text-center">
+          		<h3 class="mb-4">Facebook</h3>
+	            <p><a href="#">Ohs</a></p>
+	          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+		
+		<section class="ftco-section ftco-no-pt ftco-no-pb contact-section">
+			<div class="container">
+				<div class="row d-flex align-items-stretch no-gutters">
+					<div class="col-md-6 p-4 p-md-5 order-md-last bg-light">
     {{ include('contact/_form.html.twig') }}
 
-    <a href="{{ path('contact_index') }}">back to list</a>
+						
+					</div>
+					<div class="col-md-6 d-flex align-items-stretch">
+						<div id="map"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
 {% endblock %}

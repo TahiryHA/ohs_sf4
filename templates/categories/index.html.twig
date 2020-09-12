@@ -26,7 +26,7 @@
                 </div>
               </a>
               <div class="text bg-white p-4">
-                <h3 class="heading"><a href="#">{{item.title}}</a></h3>
+                <h3 class="heading"><a href="{{path('annonce_show',{'id': item.id})}}">{{item.title}}</a></h3>
                 {{item.content|raw}}
                 <div class="d-flex align-items-center mt-4">
 	                <p class="mb-0"><a href="{{ path('annonce_show',{'id':item.id}) }}" class="btn btn-secondary">Lire la suite <span class="ion-ios-arrow-round-forward"></span></a></p>

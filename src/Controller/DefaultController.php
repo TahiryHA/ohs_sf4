@@ -44,7 +44,8 @@ class DefaultController extends AbstractController
     public function index(EntityManagerInterface $em)
     {
         return $this->render('default/index.html.twig', [
-            'data' => $this->getData($em)
+            'data' => $this->getData($em),
+            'active' => 'home'
         ]);
     }
 
@@ -127,18 +128,9 @@ class DefaultController extends AbstractController
 
         return $this->render('teacher/index.html.twig', [
             'teachers' => $teachers,
+            'active' => 'teacher'
 
 
-        ]);
-    }
-
-    /**
-     * @Route("/contact", name="contact_index")
-     */
-    public function contact(ArticlesRepository $articlesRepository): Response
-    {
-        return $this->render('default/contact.html.twig', [
-            'annonces' => $articlesRepository->findAll()
         ]);
     }
 
@@ -151,7 +143,8 @@ class DefaultController extends AbstractController
         return $this->render('articles/show.html.twig', [
             'annonce' => $article,
             'annonces' => $repo->findAll(),
-            'regions' => $caterepo->findAll()
+            'regions' => $caterepo->findAll(),
+            'active' => 'home'
 
         ]);
     }
@@ -162,7 +155,8 @@ class DefaultController extends AbstractController
 
         return $this->render('categories/index.html.twig', [
             'regions' => $result,
-            'name' => $categories->getName()
+            'name' => $categories->getName(),
+            'active' => 'home'
 
         ]);
     }
@@ -181,6 +175,7 @@ class DefaultController extends AbstractController
 
         return $this->render("default/about.html.twig",[
             'data' => $repo->getParameter(),
+            'active' => 'about'
         ]);
     }
 

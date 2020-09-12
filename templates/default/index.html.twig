@@ -95,12 +95,12 @@
 						</a>
 						<div class="text bg-white p-4">
 							<h3 class="heading">
-								<a href="#">{{item.title}}</a>
+								<a href="{{path('annonce_show',{'id' : item.id})}}">{{item.title}}</a>
 							</h3>
 							<p>{{item.content|raw}}</p>
 							<div class="d-flex align-items-center mt-4">
 								<p class="mb-0">
-									<a href="#" class="btn btn-secondary">Lire la suite
+									<a href="{{path('annonce_show',{'id' : item.id})}}" class="btn btn-secondary">Lire la suite
 										<span class="ion-ios-arrow-round-forward"></span>
 									</a>
 								</p>
@@ -209,7 +209,7 @@
 				</div>
 			</section> #}
 
-	<section class="ftco-intro" style="background-image: url(kiddos/images/bg_3.jpg);" data-stellar-background-ratio="0.5">
+	{# <section class="ftco-intro" style="background-image: url(kiddos/images/bg_3.jpg);" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
@@ -224,10 +224,10 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> #}
 
 
-	<section class="ftco-section">
+	{# <section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
 				<div class="col-md-8 text-center heading-section ftco-animate">
@@ -288,19 +288,19 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> #}
 
 	<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(kiddos/images/bg_4.jpg);" data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
 				<div class="col-md-8 text-center heading-section heading-section-black ftco-animate">
 					<h2 class="mb-4">
-						<span>20 Years of</span>
-						Experience</h2>
+						{# <span>20 Years of</span> #}
+					20 ans d'expérience</h2>
 					<p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
 				</div>
 			</div>
-			<div class="row d-md-flex align-items-center justify-content-center">
+			{# <div class="row d-md-flex align-items-center justify-content-center">
 				<div class="col-lg-10">
 					<div class="row d-md-flex align-items-center">
 						<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
@@ -349,7 +349,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> #}
 		</div>
 	</section>
 
@@ -358,8 +358,8 @@
 			<div class="row justify-content-center mb-5 pb-2">
 				<div class="col-md-8 text-center heading-section ftco-animate">
 					<h2 class="mb-4">
-						<span>Certified</span>
-						Teachers</h2>
+						{# <span>Certified</span> #}
+						Enseignants certifiés</h2>
 					<p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
 				</div>
 			</div>
@@ -408,7 +408,7 @@
 	</section>
 
 
-	<section class="ftco-section ftco-consult ftco-no-pt ftco-no-pb" style="background-image: url(kiddos/images/bg_5.jpg);" data-stellar-background-ratio="0.5">
+	{# <section class="ftco-section ftco-consult ftco-no-pt ftco-no-pb" style="background-image: url(kiddos/images/bg_5.jpg);" data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div class="row justify-content-end">
 				<div class="col-md-6 py-5 px-md-5 bg-primary">
@@ -420,9 +420,9 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> #}
 
-	<section class="ftco-section testimony-section bg-light">
+	{# <section class="ftco-section testimony-section bg-light">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
 				<div class="col-md-8 text-center heading-section ftco-animate">
@@ -504,7 +504,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> #}
 
 	{# <section class="ftco-section">
 				<div class="container">

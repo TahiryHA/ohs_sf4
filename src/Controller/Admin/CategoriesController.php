@@ -31,7 +31,7 @@ class CategoriesController extends AbstractController
         $this->breadcrumbs->addItem("Règions");
         $this->breadcrumbs->addItem("Liste");
 
-        return $this->render('categories/index.html.twig', [
+        return $this->render('categories/backup/index.html.twig', [
             'categories' => $categoriesRepository->findAll(),
         ]);
     }
