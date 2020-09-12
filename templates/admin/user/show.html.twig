@@ -22,19 +22,24 @@
                 <a class="avatar avatar-lg" href="javascript:void(0)">
                   <img src="{{asset('global/portraits/5.jpg')}}" alt="...">
                 </a>
+                {% set roles = {
+                  'ROLE_ADMIN' : 'Administrateur',
+                  'ROLE_TEACHER' : 'Enseignant',
+                  'ROLE_STUDENT' : 'Etudiant',
+                  'ROLE_USER' : 'Utilisateur'
+                } %}
                 <h4 class="profile-user">{{user.username}}</h4>
-                <p class="profile-job">Art director</p>
-                <p>Hi! I'm Adrian the Senior UI Designer at AmazingSurge. We hope
-                  you enjoy the design and quality of Social.</p>
+                <p class="profile-job">{{ user.roles|map(role => roles[role])|join(', ') }}</p>
+                <p>{{user.about}}</p>
                 <div class="profile-social">
                   <a class="icon bd-twitter" href="javascript:void(0)"></a>
                   <a class="icon bd-facebook" href="javascript:void(0)"></a>
                   <a class="icon bd-dribbble" href="javascript:void(0)"></a>
                   <a class="icon bd-github" href="javascript:void(0)"></a>
                 </div>
-                <button type="button" class="btn btn-primary">Follow</button>
+                {# <button type="button" class="btn btn-primary">Follow</button> #}
               </div>
-              <div class="card-footer">
+              {# <div class="card-footer">
                 <div class="row no-space">
                   <div class="col-4">
                     <strong class="profile-stat-count">260</strong>
@@ -49,7 +54,7 @@
                     <span>Tweets</span>
                   </div>
                 </div>
-              </div>
+              </div> #}
             </div>
             <!-- End Page Widget -->
           </div>

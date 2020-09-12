@@ -1,0 +1,25 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Level index{% endblock %}
+
+{% block left_sidebar %}
+		{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'level' }
+    )) }}
+
+{% endblock %} 
+
+{% block entete %}
+
+<span class="wb-order"></span>
+Classe <span class="badge badge-pill badge-success">{{levels|length}}</span>
+
+{% endblock %}
+
+{% block page %}
+ <div class="example-wrap">
+      <h4 class="example-title">Tous les contacts</h4>
+        {% include "level/table.html.twig" %}
+</div>
+{% endblock %}

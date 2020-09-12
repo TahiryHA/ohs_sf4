@@ -11,6 +11,8 @@
 
 namespace App\Form\Admin;
 
+use App\Entity\AcademicYear;
+use App\Entity\Level;
 use App\Entity\User;
 use App\Entity\UserRole;
 use Doctrine\ORM\EntityRepository;
@@ -41,6 +43,17 @@ class UserType extends AbstractType
                 'choice_translation_domain' => 'messages',
                 'multiple' => true,
                 'required' => true,
+            ])
+            ->add('academic_year', EntityType::class, [
+                'placeholder' => 'Selectionnez l\'année academic',
+                'class' => AcademicYear::class,
+                'choice_label' => 'name',
+                'mapped' => false
+            ])
+            ->add('level', EntityType::class, [
+                'class' => Level::class,
+                'choice_label' => 'name',
+                'mapped' => false
             ])
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,

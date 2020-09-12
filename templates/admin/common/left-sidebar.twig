@@ -1,4 +1,4 @@
-{% set in_create = ['new-categorie', 'new-user', 'new-article','new-gallery','new-slider'] %}
+{% set in_create = ['new-categorie', 'new-user', 'new-article','new-gallery','new-slider','new-academic','new-level','new-news'] %}
 {% set in_settings = ['setting-users','setting-parameter'] %}
 <div class="site-menubar">
 	<div class="site-menubar-body">
@@ -27,6 +27,24 @@
 								<span class="site-menu-title">Contact</span>
 							</a>
 						</li>
+						<li class="site-menu-item has-sub {% if active == 'level' %} active {% endif %}">
+							<a href="{{path('level_index')}}">
+								<i class="site-menu-icon wb-order" aria-hidden="true"></i>
+								<span class="site-menu-title">Classe</span>
+							</a>
+						</li>
+						<li class="site-menu-item has-sub {% if active == 'academic' %} active {% endif %}">
+							<a href="{{path('academic_year_index')}}">
+								<i class="site-menu-icon wb-order" aria-hidden="true"></i>
+								<span class="site-menu-title">Année academic</span>
+							</a>
+						</li>
+						<li class="site-menu-item has-sub {% if active == 'news' %} active {% endif %}">
+							<a href="{{path('news_index')}}">
+								<i class="site-menu-icon wb-order" aria-hidden="true"></i>
+								<span class="site-menu-title">Publications membres</span>
+							</a>
+						</li>
 						<li class="site-menu-item has-sub {% if active == 'articles' %} active {% endif %}">
 							<a href="{{path('articles_index')}}">
 								<i class="site-menu-icon wb-order" aria-hidden="true"></i>
@@ -45,6 +63,12 @@
 								<span class="site-menu-title">Slider</span>
 							</a>
 						</li>
+						<li class="site-menu-item has-sub {% if active == 'gallery' %} active {% endif %}">
+							<a href="{{path('gallery_index')}}">
+								<i class="site-menu-icon wb-image" aria-hidden="true"></i>
+								<span class="site-menu-title">Galérie</span>
+							</a>
+						</li>
 						
 						<li class="site-menu-item has-sub {% if active == 'user-list' %} active {% endif %}">
 							<a href="{{path('admin_users')}}">
@@ -59,15 +83,29 @@
 								<span class="site-menu-arrow"></span>
 							</a>
 							<ul class="site-menu-sub">
-								
+								<li class="site-menu-item {% if active == 'new-news'  %}active{% endif %}">
+									<a class="animsition-link" href="{{path('news_new')}}">
+										<span class="site-menu-title">Publication membre</span>
+									</a>
+								</li>
 								<li class="site-menu-item {% if active == 'new-article'  %}active{% endif %}">
 									<a class="animsition-link" href="{{path('articles_new')}}">
 										<span class="site-menu-title">Publication</span>
 									</a>
 								</li>
+								<li class="site-menu-item {% if active == 'new-level'  %}active{% endif %}">
+									<a class="animsition-link" href="{{path('level_new')}}">
+										<span class="site-menu-title">Classe</span>
+									</a>
+								</li>
 								<li class="site-menu-item {% if active == 'new-categorie'  %}active{% endif %}">
 									<a class="animsition-link" href="{{path('categories_new')}}">
 										<span class="site-menu-title">Règion</span>
+									</a>
+								</li>
+								<li class="site-menu-item {% if active == 'new-academic'  %}active{% endif %}">
+									<a class="animsition-link" href="{{path('academic_year_new')}}">
+										<span class="site-menu-title">Année academic</span>
 									</a>
 								</li>
 								<li class="site-menu-item {% if active == 'new-gallery'  %}active{% endif %}">

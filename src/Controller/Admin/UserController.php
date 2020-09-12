@@ -11,6 +11,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Level;
 use App\Entity\User;
 use App\Form\Admin\UserType;
 use App\Form\PasswordEditType;
@@ -90,7 +91,11 @@ class UserController extends AbstractController
                 $roles[] = $role->getType();
             }
 
+            $data = $request->request->get('user');
+            $level = $this->getDoctrine()->getRepository(Level::class)->find($data['level']);
+
             $user->setRoles($roles);
+            $user->addLevel($level);
             $em->persist($user);
 
             $em->flush();

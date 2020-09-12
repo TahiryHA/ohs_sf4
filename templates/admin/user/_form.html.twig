@@ -3,6 +3,26 @@
 <div class="row row-lg">
 	<div class="col-xl-12 form-horizontal">
 		<div class="form-group row">
+			<label class="col-xl-12 col-md-3 form-control-label">Année scolaire
+				<span class="required">*</span>
+			</label>
+			<div class=" col-xl-12 col-md-9">
+
+				{{ form_widget(form.academic_year) }}
+			</div>
+
+		</div>
+		<div class="form-group row">
+			<label class="col-xl-12 col-md-3 form-control-label">Classe
+				<span class="required">*</span>
+			</label>
+			<div class=" col-xl-12 col-md-9">
+
+				{{ form_widget(form.level) }}
+			</div>
+
+		</div>
+		<div class="form-group row">
 			<label class="col-xl-12 col-md-3 form-control-label">Nom d'utilisateur
 				<span class="required">*</span>
 			</label>

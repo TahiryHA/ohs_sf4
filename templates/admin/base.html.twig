@@ -94,7 +94,7 @@
 					{# <img class="navbar-brand-logo rounded-circle" src="{{asset('logo.png')}}" title="Remark"> #}
 					<i class="fas fa-graduation-cap"></i>
 					<span class="navbar-brand-text hidden-xs-down">
-						{{ App.name }} - Administration</span>
+						OHS - Administration</span>
 				</div>
 				<button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search" data-toggle="collapse">
 					<span class="sr-only">Toggle Search</span>
@@ -500,6 +500,10 @@
 		{% block pageFoot %}
 
 		{% endblock %}
+		<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+		<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+        <script src="{{asset('js/ajax.js')}}"></script>
+		
 		<script>
 		// $(document).ready(function(){
 		// 	$(document).on('click','.add_to',function(e) {

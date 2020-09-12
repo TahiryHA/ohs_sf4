@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}News index{% endblock %}
+
+{% block left_sidebar %}
+{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'news' }
+    )) }}
+{% endblock %} 
+
+{% block entete %}
+ 
+<span class="wb-order"></span>
+Publications membres <span class="badge badge-pill badge-success">{{news|length}}</span>
+
+{% endblock %}
+
+{% block page %}
+
+<div class="example-wrap">
+      <h4 class="example-title">Tous les publications</h4>
+        {% include "news/table.html.twig" %}
+</div>
+{% endblock %}
+

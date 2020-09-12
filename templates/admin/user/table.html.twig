@@ -6,6 +6,7 @@
             <th>#</th>
             <th>Login</th>
             <th>Type</th>
+            <th>Classe</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -18,11 +19,14 @@
                             "ROLE_ADMIN": 'secondary',
                             "ROLE_TEACHER": 'success',
                             "ROLE_TRANSLATOR": 'primary',
-                            "ROLE_USER": 'info'
+                            "ROLE_USER": 'info',
+                            "ROLE_STUDENT": 'info'
+
                         } %}
 
                         {{ user.roles|map(role => '<span class="badge badge-' ~ roleLabels[role] ~ '">' ~ role|trans ~ '</span>')|join(' ')|raw }}
                     </td>
+                    <td>{{ user.level|map( l => l.name)|join(', ') }}</td>
                     <td>
                         <div class="btn-group">
                             <a  href="{{ path('admin_user_show', {user: user.id}) }}" data-toggle="tooltip" data-placement="top" title="Afficher le profil">

@@ -1,0 +1,20 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edit AcademicYear{% endblock %}
+
+{% block left_sidebar %}
+{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'academic' }
+    )) }}
+{% endblock %} 
+
+{% block page %}
+    <h1>Edit AcademicYear</h1>
+
+    {{ include('academic_year/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('academic_year_index') }}">back to list</a>
+
+    {{ include('academic_year/_delete_form.html.twig') }}
+{% endblock %}

@@ -90,9 +90,15 @@ class User implements UserInterface
      */
     private $about;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Level", inversedBy="users")
+     */
+    private $level;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
+        $this->level = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -282,6 +288,32 @@ class User implements UserInterface
     public function setAbout(?string $about): self
     {
         $this->about = $about;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Level[]
+     */
+    public function getLevel(): Collection
+    {
+        return $this->level;
+    }
+
+    public function addLevel(Level $level): self
+    {
+        if (!$this->level->contains($level)) {
+            $this->level[] = $level;
+        }
+
+        return $this;
+    }
+
+    public function removeLevel(Level $level): self
+    {
+        if ($this->level->contains($level)) {
+            $this->level->removeElement($level);
+        }
 
         return $this;
     }
