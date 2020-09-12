@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Parameter{% endblock %}
+{% block left_sidebar %}
+		{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'categories' }
+    )) }}
+
+{% endblock %} 
+{% block body %}
+    <h1>Parameter</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ parameter.id }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ parameter.address }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ parameter.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ parameter.phone }}</td>
+            </tr>
+            <tr>
+                <th>SocialNetwork</th>
+                <td>{{ parameter.socialNetwork ? parameter.socialNetwork|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>About</th>
+                <td>{{ parameter.about }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('parameter_index') }}">back to list</a>
+
+    <a href="{{ path('parameter_edit', {'id': parameter.id}) }}">edit</a>
+
+    {{ include('parameter/_delete_form.html.twig') }}
+{% endblock %}

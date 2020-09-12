@@ -1,0 +1,27 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Slider index{% endblock %}
+
+{% block left_sidebar %}
+		{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'slider' }
+    )) }}
+
+{% endblock %} 
+
+{% block entete %}
+
+<span class="fa fa-map-marker"></span>
+Slider <span class="badge badge-pill badge-success">{{sliders|length}}</span>
+
+{% endblock %}
+
+{% block page %}
+
+<div class="example-wrap">
+      <h4 class="example-title">Tous les sliders</h4>
+        {% include "slider/table.html.twig" %}
+</div>
+
+{% endblock %}

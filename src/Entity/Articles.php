@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Entity;
 
@@ -60,6 +60,11 @@ class Articles
      * @ORM\ManyToMany(targetEntity="App\Entity\Categories", inversedBy="articles")
      */
     private $categories;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
 
     public function __construct()
     {
@@ -183,6 +188,18 @@ class Articles
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
         }
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }

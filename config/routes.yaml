@@ -9,3 +9,22 @@ annonce_show:
     fr: /{id}/annonce
     en: /{id}/annonce
   controller: App\Controller\DefaultController::annonce_show
+
+region_show:
+  path:
+    fr: /{id}/region
+    en: /{id}/region
+  controller: App\Controller\DefaultController::region_show
+
+
+teachers_index:
+  path:
+    fr: /teachers
+    en: /teachers
+  controller: App\Controller\DefaultController::teachers_index
+
+about_index:
+  path:
+    fr: /about
+    en: /about
+  controller: App\Controller\DefaultController::about_index

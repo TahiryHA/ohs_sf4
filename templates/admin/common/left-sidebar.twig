@@ -21,6 +21,12 @@
 					{% if is_granted('ROLE_ADMIN') %}
 
 					<li class="site-menu-category" style="display:none;">Elements</li>
+						<li class="site-menu-item has-sub {% if active == 'contact' %} active {% endif %}">
+							<a href="{{path('contact_index')}}">
+								<i class="site-menu-icon wb-order" aria-hidden="true"></i>
+								<span class="site-menu-title">Contact</span>
+							</a>
+						</li>
 						<li class="site-menu-item has-sub {% if active == 'articles' %} active {% endif %}">
 							<a href="{{path('articles_index')}}">
 								<i class="site-menu-icon wb-order" aria-hidden="true"></i>
@@ -31,6 +37,12 @@
 							<a href="{{path('categories_index')}}">
 								<i class="site-menu-icon icon fa-map-marker" aria-hidden="true"></i>
 								<span class="site-menu-title">Règions</span>
+							</a>
+						</li>
+						<li class="site-menu-item has-sub {% if active == 'slider' %} active {% endif %}">
+							<a href="{{path('slider_index')}}">
+								<i class="site-menu-icon wb-order" aria-hidden="true"></i>
+								<span class="site-menu-title">Slider</span>
 							</a>
 						</li>
 						
@@ -56,6 +68,16 @@
 								<li class="site-menu-item {% if active == 'new-categorie'  %}active{% endif %}">
 									<a class="animsition-link" href="{{path('categories_new')}}">
 										<span class="site-menu-title">Règion</span>
+									</a>
+								</li>
+								<li class="site-menu-item {% if active == 'new-gallery'  %}active{% endif %}">
+									<a class="animsition-link" href="{{path('gallery_new')}}">
+										<span class="site-menu-title">Image</span>
+									</a>
+								</li>
+								<li class="site-menu-item {% if active == 'new-slider'  %}active{% endif %}">
+									<a class="animsition-link" href="{{path('slider_new')}}">
+										<span class="site-menu-title">Slider</span>
 									</a>
 								</li>
 								<li class="site-menu-item {% if active == 'new-user'  %}active{% endif %}">
@@ -84,6 +106,11 @@
 							<span class="site-menu-arrow"></span>
 						</a>
 						<ul class="site-menu-sub">
+							<li class="site-menu-item {% if active in in_settings %}active{% endif %}">
+								<a class="animsition-link" href="{{ path('parameter_index') }}">
+									<span class="site-menu-title">Variables</span>
+								</a>
+							</li>
 							<li class="site-menu-item {% if active in in_settings %}active{% endif %}">
 								<a class="animsition-link" href="{{ path('admin_users_setting') }}">
 									<span class="site-menu-title">Utilisateurs</span>

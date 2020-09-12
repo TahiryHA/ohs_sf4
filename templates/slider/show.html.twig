@@ -1,0 +1,38 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Slider{% endblock %}
+
+{% block left_sidebar %}
+		{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'slider' }
+    )) }}
+
+{% endblock %} 
+
+{% block page %}
+    <h1>Slider</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ slider.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ slider.title }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ slider.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('slider_index') }}">back to list</a>
+
+    <a href="{{ path('slider_edit', {'id': slider.id}) }}">edit</a>
+
+    {{ include('slider/_delete_form.html.twig') }}
+{% endblock %}

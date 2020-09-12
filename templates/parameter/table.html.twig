@@ -1,0 +1,35 @@
+<div class="table table-responsive">
+<table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>SocialNetwork</th>
+                <th>About</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parameter in parameters %}
+            <tr>
+                <td>{{ parameter.id }}</td>
+                <td>{{ parameter.address }}</td>
+                <td>{{ parameter.email }}</td>
+                <td>{{ parameter.phone }}</td>
+                <td>{{ parameter.socialNetwork ? parameter.socialNetwork|json_encode : '' }}</td>
+                <td>{{ parameter.about }}</td>
+                <td>
+                    <a href="{{ path('parameter_show', {'id': parameter.id}) }}">show</a>
+                    <a href="{{ path('parameter_edit', {'id': parameter.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>

@@ -1,25 +1,55 @@
-{% extends 'admin/base.html.twig' %}
+{% extends "base.html.twig" %}
+{% block body %}
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+            <h1 class="mb-2 bread">{{name}}</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="/">Acceuil <i class="ion-ios-arrow-forward"></i></a></span> <span>Règion <i class="ion-ios-arrow-forward"></i></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+		
+		<section class="ftco-section bg-light">
+			<div class="container">
+				<div class="row">
+          {% for item in regions|sort|reverse %}
+                    <div class="col-md-6 col-lg-4 ftco-animate">
+            <div class="blog-entry">
+              <a href="{{path('annonce_show',{'id': item.id})}}" class="block-20 d-flex align-items-end" style="background-image: url('{{vich_uploader_asset(item)}}');">
+								<div class="meta-date text-center p-2">
+                  <span class="day">{{ item.createdAt|date('d') }}</span>
+                  <span class="mos">{{ item.createdAt|date('m') }}</span>
+                  <span class="yr">{{ item.createdAt|date('Y') }}</span>
+                </div>
+              </a>
+              <div class="text bg-white p-4">
+                <h3 class="heading"><a href="#">{{item.title}}</a></h3>
+                {{item.content|raw}}
+                <div class="d-flex align-items-center mt-4">
+	                <p class="mb-0"><a href="{{ path('annonce_show',{'id':item.id}) }}" class="btn btn-secondary">Lire la suite <span class="ion-ios-arrow-round-forward"></span></a></p>
+	                {# <p class="ml-auto mb-0">
+	                	<a href="#" class="mr-2">Admin</a>
+	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
+	                </p> #}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
 
-{% block left_sidebar %}
-		{{ render(controller(
-        'App\\Controller\\DefaultController::left',
-        { 'active' : 'categories' }
-    )) }}
-
-{% endblock %} 
-
-{% block entete %}
-
-<span class="fa fa-map-marker"></span>
-Règions <span class="badge badge-pill badge-success">{{categories|length}}</span>
-
+        </div>
+        {# <div class="row my-5">
+          <div class="col text-center">
+            <div class="block-27"> #}
+              <div class="result-pagination">
+					    	{{ knp_pagination_render(regions) }}
+					    </div>
+            </div>
+          </div>
+        </div>
+			</div>
+		</section>
 {% endblock %}
-
-{% block page %}
-
-<div class="example-wrap">
-      <h4 class="example-title">Tous les règions</h4>
-        {% include "categories/table.html.twig" %}
-</div>
-{% endblock %}
-

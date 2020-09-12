@@ -1,0 +1,27 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Contact index{% endblock %}
+
+{% block left_sidebar %}
+		{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'contact' }
+    )) }}
+
+{% endblock %} 
+
+{% block entete %}
+
+<span class="wb-order"></span>
+Contact <span class="badge badge-pill badge-success">{{contacts|length}}</span>
+
+{% endblock %}
+
+{% block page %}
+ <div class="example-wrap">
+      <h4 class="example-title">Tous les contacts</h4>
+        {% include "contact/table.html.twig" %}
+</div>
+
+
+{% endblock %}

@@ -15,12 +15,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="app_user")
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface 
 {
     /**
      * @ORM\Id()
@@ -33,6 +37,23 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $username;
+
+    /**
+     * @Assert\File(
+     *     maxSize = "10M",
+     *     maxSizeMessage = "Veuillez uploader un fichier inferieur a 10MB."
+     * )
+     *
+     * @Vich\UploadableField(mapping="image", fileNameProperty="image"))
+     *
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
 
     /**
      * @ORM\Column(type="json")
@@ -59,6 +80,16 @@ class User implements UserInterface
      */
     private $likes;
 
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $matricule;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $about;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
@@ -82,6 +113,39 @@ class User implements UserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Undocumented function.
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Undocumented function.
+     */
+    public function setImageFile(?File $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+        if (null !== $this->imageFile) {
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
@@ -194,6 +258,30 @@ class User implements UserInterface
                 $like->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMatricule(): ?string
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(?string $matricule): self
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    public function getAbout(): ?string
+    {
+        return $this->about;
+    }
+
+    public function setAbout(?string $about): self
+    {
+        $this->about = $about;
 
         return $this;
     }

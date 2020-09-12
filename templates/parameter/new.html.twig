@@ -1,0 +1,17 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New Parameter{% endblock %}
+{% block left_sidebar %}
+		{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'categories' }
+    )) }}
+
+{% endblock %} 
+{% block body %}
+    <h1>Create new Parameter</h1>
+
+    {{ include('parameter/_form.html.twig') }}
+
+    <a href="{{ path('parameter_index') }}">back to list</a>
+{% endblock %}
