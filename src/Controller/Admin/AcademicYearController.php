@@ -106,7 +106,7 @@ class AcademicYearController extends AbstractController
 
         
         $select = '<select id="user_level" name="user[level]" class="form-control">';
-        $select .= '<option value="" disabled selected>Choisissez la classe</option>';
+        // $select .= '<option value="" disabled selected>Choisissez la classe</option>';
 
         foreach ($levels as $level) {
 

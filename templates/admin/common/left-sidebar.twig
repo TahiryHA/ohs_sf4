@@ -1,4 +1,4 @@
-{% set in_create = ['new-categorie', 'new-user', 'new-article','new-gallery','new-slider','new-academic','new-level','new-news','new-sn'] %}
+{% set in_create = ['new-categorie', 'new-user', 'new-article','new-gallery','new-slider','new-academic','new-level','new-news','new-sn','new-parallax'] %}
 {% set in_settings = ['setting-users','setting-parameter'] %}
 <div class="site-menubar">
 	<div class="site-menubar-body">
@@ -71,6 +71,12 @@
 								<span class="site-menu-title">Slider</span>
 							</a>
 						</li>
+						<li class="site-menu-item has-sub {% if active == 'parallax' %} active {% endif %}">
+							<a href="{{path('parallax_index')}}">
+								<i class="site-menu-icon wb-image" aria-hidden="true"></i>
+								<span class="site-menu-title">Parallax</span>
+							</a>
+						</li>
 						<li class="site-menu-item has-sub {% if active == 'user-list' %} active {% endif %}">
 							<a href="{{path('admin_users')}}">
 								<i class="site-menu-icon wb-users" aria-hidden="true"></i>
@@ -118,6 +124,12 @@
 								<li class="site-menu-item {% if active == 'new-slider'  %}active{% endif %}">
 									<a class="animsition-link" href="{{path('slider_new')}}">
 										<span class="site-menu-title">Slider</span>
+									</a>
+								</li>
+
+								<li class="site-menu-item {% if active == 'new-parallax'  %}active{% endif %}">
+									<a class="animsition-link" href="{{path('parallax_new')}}">
+										<span class="site-menu-title">Parallax</span>
 									</a>
 								</li>
 								<li class="site-menu-item {% if active == 'new-sn'  %}active{% endif %}">

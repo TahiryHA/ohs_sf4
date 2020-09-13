@@ -1,0 +1,25 @@
+<table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parallax in parallaxes %}
+            <tr>
+                <td>{{ parallax.title }}</td>
+                <td>{{ parallax.content }}</td>
+                <td>
+                    <a href="{{ path('parallax_show', {'id': parallax.id}) }}">Afficher</a>
+                    <a href="{{ path('parallax_edit', {'id': parallax.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

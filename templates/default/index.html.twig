@@ -347,8 +347,8 @@
 				<div class="col-md-8 text-center heading-section heading-section-black ftco-animate">
 					<h2 class="mb-4">
 						{# <span>20 Years of</span> #}
-					20 ans d'expérience</h2>
-					<p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
+					{{ data.parallax.title }}</h2>
+					<p>{{data.parallax.content}}</p>
 				</div>
 			</div>
 			{# <div class="row d-md-flex align-items-center justify-content-center">
@@ -427,26 +427,14 @@
 							<div class="faded">
 								<p>{{item.about}}</p>
 								<ul class="ftco-social text-center">
-									<li class="ftco-animate">
-										<a href="#">
-											<span class="icon-twitter"></span>
-										</a>
-									</li>
-									<li class="ftco-animate">
-										<a href="#">
-											<span class="icon-facebook"></span>
-										</a>
-									</li>
-									<li class="ftco-animate">
-										<a href="#">
-											<span class="icon-google-plus"></span>
-										</a>
-									</li>
-									<li class="ftco-animate">
-										<a href="#">
-											<span class="icon-instagram"></span>
-										</a>
-									</li>
+									{% for i in item.socialNetwork %}
+									
+										<li class="ftco-animate">
+											<a href="{{i}}"  target="_blank">
+												<span class="icon-{{loop.parent.data.social_networks[loop.index0].icon}}"></span>
+											</a>
+										</li>
+									{% endfor %}
 								</ul>
 							</div>
 						</div>

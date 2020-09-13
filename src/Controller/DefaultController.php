@@ -18,6 +18,8 @@ use App\Entity\Slider;
 use App\Entity\Gallery;
 use App\Entity\Articles;
 use App\Entity\Categories;
+use App\Entity\Parallax;
+use App\Entity\SocialNetwork;
 use App\Service\Cart\CartService;
 use App\Repository\UserRepository;
 use App\Repository\ArticlesRepository;
@@ -70,6 +72,9 @@ class DefaultController extends AbstractController
         $annonces = $doc->getRepository(Articles::class)->findBy([], [], 3);
         $teach = $doc->getRepository(User::class)->findAll();
         $galleries = $doc->getRepository(Gallery::class)->findBy([], [], 4);
+        $parallax = $doc->getRepository(Parallax::class)->findOneBy([],[],1);
+        $sn = $doc->getRepository(SocialNetwork::class)->findAll();
+
 
         $news = [];
 
@@ -115,7 +120,8 @@ class DefaultController extends AbstractController
                         'src' => $this->helper->asset($value),
                         'username' => $value->getUsername(),
                         'about' => $value->getAbout(),
-                        'role' => $roles[$role]
+                        'role' => $roles[$role],
+                        'socialNetwork' => $value->getSocialNetwork()
                     ];
                 }
             }
@@ -146,11 +152,14 @@ class DefaultController extends AbstractController
             'annonces' => $dataAnnonces,
             'news' => $dataNews,
             'teachers' => $teachers,
-            'galleries' => $galleries
+            'galleries' => $galleries,
+            'parallax' => $parallax,
+            'social_networks' => $sn
+
         ];
     }
 
-    public function teachers_index(UserRepository $repo)
+    public function teachers_index(UserRepository $repo, SocialNetworkRepository $sn)
     {
 
         $teach = $repo->findAll();
@@ -171,7 +180,8 @@ class DefaultController extends AbstractController
                         'src' => $this->helper->asset($value),
                         'username' => $value->getUsername(),
                         'about' => $value->getAbout(),
-                        'role' => $roles[$role]
+                        'role' => $roles[$role],
+                        'socialNetwork' => $value->getSocialNetwork()
                     ];
                 }
             }
@@ -179,7 +189,9 @@ class DefaultController extends AbstractController
 
         return $this->render('teacher/index.html.twig', [
             'teachers' => $teachers,
-            'active' => 'teacher'
+            'active' => 'teacher',
+            'social_networks' => $sn
+
 
 
         ]);

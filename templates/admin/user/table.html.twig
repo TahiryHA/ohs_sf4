@@ -33,6 +33,12 @@
                                 <i class="icon fa-eye fa-lg"></i>
                             </a>
                             &nbsp;&nbsp;
+
+                            <a href="{{ path('admin_user_edit', {'id' : user.id}) }}">
+                                <i class="icon fa-edit fa-lg"></i>
+                            
+                            </a>
+                            &nbsp;&nbsp;
                             {% if not user.hasRole("ROLE_SUPER_ADMIN") %}
                                 <a class="delete-item" data-placement="top" data-target="#confirmDeleteUserModal" data-username="{{ user.username }}" data-ad-type="user" data-ad-id="{{ user.id }}" data-ad-name="{{ user.username }}" data-user-id="{{ user.id }}" data-toggle="modal" style="cursor:pointer;" title="Supprimer {{ user.username }}">
                                    <i class="icon fa-trash text-danger"></i>

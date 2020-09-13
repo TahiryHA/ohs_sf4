@@ -1,0 +1,22 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edit Parallax{% endblock %}
+
+{% block left_sidebar %}
+{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'new-parallax' }
+    )) }}
+{% endblock %}
+
+{% block entete %}
+    <span class="fa fa-send"></span>
+    Modifier le parallax
+{% endblock %}
+{% block page %}
+     <!-- Panel Full Example -->
+    {{ form_start(form,{'attr': {'id' : 'exampleFullForm', 'autocomplete':'off' }}) }}
+            {% include 'parallax/_form.html.twig' with {form: form, 'button_label' : 'Modifier'} %}
+    {{ form_end(form) }}
+    <!-- End Panel Full Example -->
+{% endblock %}

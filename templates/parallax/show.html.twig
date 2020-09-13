@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Parallax{% endblock %}
+
+{% block body %}
+    <h1>Parallax</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ parallax.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ parallax.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ parallax.content }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('parallax_index') }}">back to list</a>
+
+    <a href="{{ path('parallax_edit', {'id': parallax.id}) }}">edit</a>
+
+    {{ include('parallax/_delete_form.html.twig') }}
+{% endblock %}

@@ -36,26 +36,15 @@
 							<div class="faded">
 								<p>{{item.about}}</p>
 								<ul class="ftco-social text-center">
-									<li class="ftco-animate">
-										<a href="#">
-											<span class="icon-twitter"></span>
-										</a>
-									</li>
-									<li class="ftco-animate">
-										<a href="#">
-											<span class="icon-facebook"></span>
-										</a>
-									</li>
-									<li class="ftco-animate">
-										<a href="#">
-											<span class="icon-google-plus"></span>
-										</a>
-									</li>
-									<li class="ftco-animate">
-										<a href="#">
-											<span class="icon-instagram"></span>
-										</a>
-									</li>
+									{% for i in item.socialNetwork %}
+									
+										<li class="ftco-animate">
+											<a href="{{i}}"  target="_blank">
+												<span class="icon-{{loop.parent.data.social_networks[loop.index0].icon}}"></span>
+											</a>
+										</li>
+									{% endfor %}
+									
 								</ul>
 							</div>
 						</div>

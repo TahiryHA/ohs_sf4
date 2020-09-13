@@ -15,6 +15,7 @@ use App\Entity\Level;
 use App\Entity\User;
 use App\Form\Admin\UserType;
 use App\Form\PasswordEditType;
+use App\Repository\SocialNetworkRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,15 +65,65 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/edit", name="admin_user_edit")
+     */
+    public function edit(User $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder,SocialNetworkRepository $sn): Response
+    {
+        $this->breadcrumbs->prependRouteItem("Acceuil", "admin_index");
+        $this->breadcrumbs->addItem("Utilisateurs");
+        $this->breadcrumbs->addItem("Modifier");
+
+
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->remove('plainPassword');
+        $form->remove('level');
+        $form->remove('academic_year');
+        $form->remove('roles');
+
+
+
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+
+            $sn = $request->request->get('sn');
+
+            $data = [];
+            foreach ($sn as $key => $value) {
+                $data[$key] = $value;
+            }
+ 
+            $user->setSocialNetwork($data);
+
+            $em->flush();
+
+            $this->addFlash('success', "L'utilisateur a été modifiée avec succès.");
+
+            return $this->redirectToRoute('admin_users');
+        }
+
+        return $this->render('admin/user/create.html.twig', [
+            'form' => $form->createView(),
+            'social_networks' => $sn->findAll(),
+
+        ]);
+    }
+
+    /**
      * @Route("/new", name="admin_user_create")
      */
-    public function create(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function create(?User $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder,SocialNetworkRepository $sn): Response
     {
         $this->breadcrumbs->prependRouteItem("Acceuil", "admin_index");
         $this->breadcrumbs->addItem("Utilisateurs");
         $this->breadcrumbs->addItem("Ajouter");
 
         $user = new User();
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -96,19 +147,29 @@ class UserController extends AbstractController
 
             $user->setRoles($roles);
             $user->addLevel($level);
+
+            $sn = $request->request->get('sn');
+
+            $data = [];
+            foreach ($sn as $key => $value) {
+                $data[$key] = $value;
+            }
+ 
+            $user->setSocialNetwork($data);
+
             $em->persist($user);
 
             $em->flush();
 
             $this->addFlash('success', "L'utilisateur a été créé avec succès.");
 
-            return $this->redirectToRoute('admin_user_show', [
-                'user' => $user->getId(),
-            ]);
+            return $this->redirectToRoute('admin_users');
         }
 
         return $this->render('admin/user/create.html.twig', [
             'form' => $form->createView(),
+            'social_networks' => $sn->findAll(),
+
         ]);
     }
 

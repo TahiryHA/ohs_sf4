@@ -98,6 +98,11 @@ class User implements UserInterface
      */
     private $level;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $socialNetwork = [];
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
@@ -318,6 +323,18 @@ class User implements UserInterface
         if ($this->level->contains($level)) {
             $this->level->removeElement($level);
         }
+
+        return $this;
+    }
+
+    public function getSocialNetwork(): ?array
+    {
+        return $this->socialNetwork;
+    }
+
+    public function setSocialNetwork(?array $socialNetwork): self
+    {
+        $this->socialNetwork = $socialNetwork;
 
         return $this;
     }

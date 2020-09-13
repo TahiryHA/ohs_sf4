@@ -1,26 +1,25 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}News index{% endblock %}
+{% block title %}Parallax index{% endblock %}
 
 {% block left_sidebar %}
 {{ render(controller(
         'App\\Controller\\DefaultController::left',
-        { 'active' : 'news' }
+        { 'active' : 'parallax' }
     )) }}
-{% endblock %}  
+{% endblock %} 
 
 {% block entete %}
  
 <span class="wb-order"></span>
-Publications membres <span class="badge badge-pill badge-success">{{news|length}}</span>
+Parallax <span class="badge badge-pill badge-success">{{parallaxes|length}}</span>
 
 {% endblock %}
 
 {% block page %}
 
 <div class="example-wrap">
-      <h4 class="example-title">Tous les publications</h4>
-        {% include "news/table.html.twig" %}
+      <h4 class="example-title">Tous les parallax</h4>
+        {% include "parallax/table.html.twig" %}
 </div>
 {% endblock %}
-

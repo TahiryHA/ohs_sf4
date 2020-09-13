@@ -1,7 +1,9 @@
 {% form_theme form with ['bootstrap_4_layout.html.twig'] only %}
+{% set id = form.vars.value.id %}
 
 <div class="row row-lg">
 	<div class="col-xl-12 form-horizontal">
+		{% if not id %}
 		<div class="form-group row">
 			<label class="col-xl-12 col-md-3 form-control-label">Année scolaire
 				<span class="required">*</span>
@@ -22,6 +24,7 @@
 			</div>
 
 		</div>
+		{% endif %}
 		<div class="form-group row">
 			<label class="col-xl-12 col-md-3 form-control-label">Nom d'utilisateur
 				<span class="required">*</span>
@@ -42,6 +45,7 @@
 				<textarea class="form-control" name="skills" rows="3" placeholder="Describe your skills" required=""></textarea>
 			</div>
 		</div> #}
+		{% if not id %}
 		<div class="form-group row">
 			<label class="col-xl-12 col-md-3 form-control-label">Roles</label>
 			<div class="col-xl-12 col-md-9">
@@ -56,8 +60,55 @@
 
 			</div>
 		</div>
+		{% endif %}
+
+		{% set sn = form.vars.value.socialNetwork %}
 
 
+		<div class="table-responsive">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Reseaux sociaux</th>
+						<th>Votre addresse</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for social_network in social_networks %}
+						{% if sn %}
+
+
+							<tr>
+								<td>{{ social_network.name }}</td>
+								<td>
+									<input type="text" name="sn[{{social_network.name}}]" value="{{sn[social_network.name]}}" id="{{social_network.name}}" class="form-control">
+								</td>
+
+							</tr>
+
+						{% else %}
+
+							<tr>
+								<td>{{ social_network.name }}</td>
+								<td>
+									<input type="text" name="sn[{{social_network.name}}]" id="{{social_network.name}}" class="form-control">
+								</td>
+
+							</tr>
+							
+						{% endif %}
+					{% else %}
+						<tr>
+							<td colspan="4">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+
+		{% if not id %}
+	
 		<div class="form-group row">
 			<label class="col-xl-12 col-md-3 form-control-label">Mot de passe
 				<span class="required">*</span>
@@ -87,6 +138,7 @@
 				</div>
 			</div>
 		</div>
+		{% endif %}
 	</div>
 	<div class="form-group col-xl-12 text-right padding-top-m">
 		<button type="submit" class="btn btn-success" id="validateButton1">Enregistrer</button>

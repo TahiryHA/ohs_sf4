@@ -53,6 +53,7 @@ class UserType extends AbstractType
             ->add('level', EntityType::class, [
                 'class' => Level::class,
                 'choice_label' => 'name',
+                'multiple' => false,
                 'mapped' => false
             ])
             ->add('plainPassword', RepeatedType::class, [
