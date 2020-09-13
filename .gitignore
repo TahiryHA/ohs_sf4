@@ -56,5 +56,8 @@
 ###< liip/imagine-bundle ###
 
 ###> images ###
-/public/assets/img/*
+*.png
+*.jpg
+*.jpeg
+!default.png
 ###< lmages ###
