@@ -33,8 +33,10 @@ class News
      *     maxSize = "10M",
      *     maxSizeMessage = "Veuillez uploader un fichier inferieur a 10MB."
      * )
-     *
-     * @Vich\UploadableField(mapping="article_image", fileNameProperty="image"))
+     * 
+     * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"})
+     * 
+     * @Vich\UploadableField(mapping="new_image", fileNameProperty="image"))
      *
      * @var File|null
      */

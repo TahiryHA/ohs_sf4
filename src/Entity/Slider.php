@@ -31,8 +31,10 @@ class Slider
      *     maxSize = "10M",
      *     maxSizeMessage = "Veuillez uploader un fichier inferieur a 10MB."
      * )
+     * 
+     * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"})
      *
-     * @Vich\UploadableField(mapping="article_image", fileNameProperty="image"))
+     * @Vich\UploadableField(mapping="slider_image", fileNameProperty="image"))
      *
      * @var File|null
      */

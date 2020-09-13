@@ -29,7 +29,7 @@ class Gallery
      * 
      * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"})
      *
-     * @Vich\UploadableField(mapping="image", fileNameProperty="image"))
+     * @Vich\UploadableField(mapping="gallery_image", fileNameProperty="image"))
      *
      * @var File|null
      */

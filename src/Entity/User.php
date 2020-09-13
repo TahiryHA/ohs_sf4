@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -43,8 +44,10 @@ class User implements UserInterface
      *     maxSize = "10M",
      *     maxSizeMessage = "Veuillez uploader un fichier inferieur a 10MB."
      * )
+     * 
+     * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"})
      *
-     * @Vich\UploadableField(mapping="image", fileNameProperty="image"))
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="image"))
      *
      * @var File|null
      */
@@ -128,7 +131,7 @@ class User implements UserInterface
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
@@ -149,8 +152,9 @@ class User implements UserInterface
     public function setImageFile(?File $imageFile): self
     {
         $this->imageFile = $imageFile;
-        if (null !== $this->imageFile) {
-            $this->updatedAt = new \DateTime();
+
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
         }
 
         return $this;
