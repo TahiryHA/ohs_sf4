@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Parameter;
 use App\Form\ParameterType;
 use App\Repository\ParameterRepository;
+use App\Repository\SocialNetworkRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +37,14 @@ class ParameterController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $sn = $request->request->get('sn');
+
+            $data = [];
+            foreach ($sn as $key => $value) {
+                $data[$key] = $value;
+            }
+ 
+            $parameter->setSocialNetwork($data);
             $entityManager->persist($parameter);
             $entityManager->flush();
 
@@ -61,12 +70,20 @@ class ParameterController extends AbstractController
     /**
      * @Route("/{id}/edit", name="parameter_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Parameter $parameter): Response
+    public function edit(Request $request, Parameter $parameter, SocialNetworkRepository $sn): Response
     {
         $form = $this->createForm(ParameterType::class, $parameter);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $sn = $request->request->get('sn');
+
+            $data = [];
+            foreach ($sn as $key => $value) {
+                $data[$key] = $value;
+            }
+ 
+            $parameter->setSocialNetwork($data);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('parameter_index');
@@ -74,6 +91,7 @@ class ParameterController extends AbstractController
 
         return $this->render('parameter/edit.html.twig', [
             'parameter' => $parameter,
+            'social_networks' => $sn->findAll(),
             'form' => $form->createView(),
         ]);
     }

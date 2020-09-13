@@ -5,10 +5,13 @@ namespace App\Controller\Admin;
 use App\Entity\Gallery;
 use App\Form\GalleryType;
 use App\Repository\GalleryRepository;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @Route("/gallery")
@@ -61,12 +64,17 @@ class GalleryController extends AbstractController
     /**
      * @Route("/{id}/edit", name="gallery_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Gallery $gallery): Response
+    public function edit(Request $request, Gallery $gallery, CacheManager $cacheManager, UploaderHelper $helper): Response
     {
         $form = $this->createForm(GalleryType::class, $gallery);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($gallery->getImageFile() instanceof UploadedFile) {
+                $cacheManager->remove($helper->asset($gallery,'imageFile'));
+            }
+            
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('gallery_index');

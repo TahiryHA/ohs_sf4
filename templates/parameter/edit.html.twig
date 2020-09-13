@@ -9,7 +9,8 @@
 
 {% endblock %} 
 {% block page %}
-
-    {{ include('parameter/_form.html.twig', {'button_label': 'Modifier'}) }}
+{{ form_start(form) }}
+            {% include 'parameter/_form.html.twig' with {form: form,'button_label': 'Modifier' } %}
+    {{ form_end(form) }}
 
 {% endblock %}

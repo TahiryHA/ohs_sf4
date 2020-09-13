@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Articles;
 use App\Entity\Categories;
 use Symfony\Component\Form\AbstractType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
@@ -25,14 +26,17 @@ class ArticlesType extends AbstractType
                 'multiple' => true,
                 'expanded' => false
             ])
+            ->add('title')
             ->add('content',TextareaType::class,[
                 'label' => 'Contenu',
                 'attr' => ['placeholder' => 'Contenu','class' => 'textarea'],
                 'required' => false
             ])
-            ->add('imageFile',FileType::class,[
+            ->add('imageFile',VichFileType::class,[
                 'label' => false,
                 'required' => false,
+                'allow_delete'  => false, // not mandatory, default is true
+                'download_link' => true, // not mandatory, default is true
             ])
             // ->add('createdAt')
             // ->add('likes')

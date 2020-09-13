@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\News;
 use App\Entity\Level;
 use Symfony\Component\Form\AbstractType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,9 +26,11 @@ class NewsType extends AbstractType
                     'expanded' => false
                 ])
             ->add('title')
-            ->add('imageFile',FileType::class,[
+            ->add('imageFile',VichFileType::class,[
                 'label' => false,
                 'required' => false,
+                'allow_delete'  => false, // not mandatory, default is true
+                'download_link' => true, // not mandatory, default is true
             ])
             ->add('content',TextareaType::class,[
                 'label' => 'Contenu',

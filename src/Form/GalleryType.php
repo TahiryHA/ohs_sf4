@@ -6,16 +6,17 @@ use App\Entity\Gallery;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class GalleryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile',FileType::class,[
+            ->add('imageFile',VichFileType::class,[
                 'label' => false,
-                'required' => false,
+                'allow_delete'  => false, // not mandatory, default is true
+                'download_link' => true, // not mandatory, default is true
             ])
             ->add('alt')
         ;

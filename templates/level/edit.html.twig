@@ -11,11 +11,10 @@
 {% endblock %} 
 
 {% block page %}
-    <h1>Edit Level</h1>
-
-    {{ include('level/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('level_index') }}">back to list</a>
-
-    {{ include('level/_delete_form.html.twig') }}
+     <!-- Panel Full Example -->
+    {{ form_start(form,{'attr': {'id' : 'exampleFullForm', 'autocomplete':'off' }}) }}
+            {% include 'level/_form.html.twig' with {form: form, 'button_label': 'Modifier'} %}
+    {{ form_end(form) }}
+    <!-- End Panel Full Example -->
 {% endblock %}
+

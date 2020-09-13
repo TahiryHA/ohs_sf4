@@ -17,7 +17,7 @@
                 <td>{{ article.categories|map(c => c.name)|join(', ') }}</td>
                 {# <td>{{ article.content|raw }}</td> #}
                 <td>
-                    {# <a href="{{ path('articles_show', {'id': article.id}) }}">show</a> #}
+                    <a href="{{ path('articles_delete', {'id': article.id, '_token' : csrf_token('delete' ~ article.id) }) }}">Supprimer</a>
                     <a href="{{ path('articles_edit', {'id': article.id}) }}">Modifier</a>
                 </td>
             </tr>

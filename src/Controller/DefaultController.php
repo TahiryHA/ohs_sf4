@@ -23,6 +23,7 @@ use App\Repository\UserRepository;
 use App\Repository\ArticlesRepository;
 use App\Repository\ParameterRepository;
 use App\Repository\CategoriesRepository;
+use App\Repository\SocialNetworkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -119,10 +120,31 @@ class DefaultController extends AbstractController
                 }
             }
         }
+        $dataAnnonces = [];
+        foreach ($annonces as $key => $value) {
+            $dataAnnonces [] = [
+                'id' => $value->getId(),
+                'image' => $this->helper->asset($value),
+                'title' => $value->getTitle(),
+                'content' => strip_tags($value->getContent()),
+                'createdAt' => $value->getCreatedAt()
+            ];
+        }
+
+        $dataNews = [];
+        foreach ($news as $key => $value) {
+            $dataNews[] = [
+                'id' => $value->getId(),
+                'image' => $this->helper->asset($value),
+                'title' => $value->getTitle(),
+                'content' => strip_tags($value->getContent()),
+                'createdAt' => $value->getCreatedAt()
+            ];
+        }
         return [
             'sliders' => $sliders,
-            'annonces' => $annonces,
-            'news' => $news,
+            'annonces' => $dataAnnonces,
+            'news' => $dataNews,
             'teachers' => $teachers,
             'galleries' => $galleries
         ];
@@ -203,7 +225,7 @@ class DefaultController extends AbstractController
     public function level_show(PaginatorInterface $paginator, Level $level, Request $request): Response
     {
         $result = $paginator->paginate($level->getNews(), $request->query->getInt('page', 1), 6);
-
+        
         return $this->render('level/index.html.twig', [
             'level' => $result,
             'name' => $level->getName(),
@@ -232,12 +254,14 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function footer(ParameterRepository $repo, ArticlesRepository $repoarticle)
+    public function footer(ParameterRepository $repo, ArticlesRepository $repoarticle, SocialNetworkRepository $sn)
     {
 
         return $this->render("common/footer.twig", [
             'data' => $repo->getParameter(),
-            'annonces' => $repoarticle->findAll()
+            'annonces' => $repoarticle->findAll(),
+            'social_networks' => $sn->findAll()
+
         ]);
     }
 }

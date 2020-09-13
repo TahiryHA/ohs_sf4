@@ -5,10 +5,13 @@ namespace App\Controller\Admin;
 use App\Entity\News;
 use App\Form\NewsType;
 use App\Repository\NewsRepository;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @Route("/news")
@@ -37,6 +40,8 @@ class NewsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $news->setCreatedAt(new \DateTime());
+            $news->setUpdatedAt(new \DateTime());
+
             $entityManager->persist($news);
             $entityManager->flush();
 
@@ -62,12 +67,15 @@ class NewsController extends AbstractController
     /**
      * @Route("/{id}/edit", name="news_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, News $news): Response
+    public function edit(Request $request, News $news, CacheManager $cacheManager, UploaderHelper $helper): Response
     {
         $form = $this->createForm(NewsType::class, $news);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $news->setUpdatedAt(new \DateTime());
+           
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('news_index');
@@ -80,11 +88,12 @@ class NewsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="news_delete", methods={"DELETE"})
+     * @Route("/{id}/{_token}", name="news_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, News $news): Response
+    public function delete($_token, Request $request, News $news, CacheManager $cacheManager, UploaderHelper $helper): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$news->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$news->getId(), $_token)) {
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($news);
             $entityManager->flush();

@@ -1,0 +1,29 @@
+<div class="table table-responsive">
+	<table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Icon</th>
+				{# <th>actions</th> #}
+			</tr>
+		</thead>
+		<tbody>
+			{% for social_network in social_networks %}
+				<tr>
+					<td>{{ social_network.id }}</td>
+					<td>{{ social_network.name }}</td>
+					<td> <i class="fas fa-{{ social_network.icon }} fa-lg"></i> </td>
+					{# <td>
+						<a href="{{ path('social_network_show', {'id': social_network.id}) }}">show</a>
+						<a href="{{ path('social_network_edit', {'id': social_network.id}) }}">edit</a>
+					</td> #}
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

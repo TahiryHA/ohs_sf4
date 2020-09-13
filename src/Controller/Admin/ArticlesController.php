@@ -52,6 +52,8 @@ class ArticlesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setCreatedAt(new \DateTime());
+            $article->setUpdatedAt(new \DateTime());
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
@@ -84,6 +86,9 @@ class ArticlesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $article->setUpdatedAt(new \DateTime());
+            
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('articles_index');
@@ -96,11 +101,12 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="articles_delete", methods={"DELETE"})
+     * @Route("/{id}/{_token}", name="articles_delete", methods={"DELETE","GET"})
      */
-    public function delete(Request $request, Articles $article): Response
+    public function delete($_token,Request $request, Articles $article): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$article->getId(), $_token)) {
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();

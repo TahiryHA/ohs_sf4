@@ -2,28 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Parameter;
+use App\Entity\SocialNetwork;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParameterType extends AbstractType
+class SocialNetworkType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('address')
-            ->add('email')
-            ->add('phone')
-            // ->add('socialNetwork')
-            ->add('about')
+            ->add('name')
+            ->add('icon')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Parameter::class,
+            'data_class' => SocialNetwork::class,
         ]);
     }
 }

@@ -1,8 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Gallery{% endblock %}
+{% block left_sidebar %}
+		{{ render(controller(
+        'App\\Controller\\DefaultController::left',
+        { 'active' : 'gallery' }
+    )) }}
 
-{% block body %}
+{% endblock %} 
+{% block page %}
     <h1>Gallery</h1>
 
     <table class="table">

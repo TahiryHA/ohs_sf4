@@ -13,7 +13,7 @@
 				<tr>
 					<td>{{ slider.id }}</td>
 					<td>{{ slider.title }}</td>
-					<td>{{ slider.image }}</td>
+					<td><img src="{{ vich_uploader_asset(slider) ? vich_uploader_asset(slider) | imagine_filter('pub') : ''}}" alt="" srcset=""></td>
 					<td>
 						<a href="{{ path('slider_show', {'id': slider.id}) }}">Afficher</a>
 						<a href="{{ path('slider_edit', {'id': slider.id}) }}">Modifier</a>

@@ -5,10 +5,14 @@ namespace App\Controller\Admin;
 use App\Entity\Slider;
 use App\Form\SliderType;
 use App\Repository\SliderRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/slider")
@@ -61,12 +65,17 @@ class SliderController extends AbstractController
     /**
      * @Route("/{id}/edit", name="slider_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Slider $slider): Response
+    public function edit(Request $request, Slider $slider, CacheManager $cacheManager, UploaderHelper $helper): Response
     {
         $form = $this->createForm(SliderType::class, $slider);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            if ($slider->getImageFile() instanceof UploadedFile) {
+                $cacheManager->remove($helper->asset($slider,'imageFile'));
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('slider_index');
@@ -81,11 +90,18 @@ class SliderController extends AbstractController
     /**
      * @Route("/{id}", name="slider_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Slider $slider): Response
+    public function delete(Request $request, Slider $slider, CacheManager $cacheManager, UploaderHelper $helper): Response
     {
         if ($this->isCsrfTokenValid('delete'.$slider->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
+            
+            $cacheManager->remove($helper->asset($slider,'imageFile'));
+            $filesystem = new Filesystem();
+            $filesystem->remove('images/'.$slider->getImage());
+
             $entityManager->remove($slider);
+
             $entityManager->flush();
         }
 

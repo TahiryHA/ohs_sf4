@@ -1,4 +1,4 @@
-{% set in_create = ['new-categorie', 'new-user', 'new-article','new-gallery','new-slider','new-academic','new-level','new-news'] %}
+{% set in_create = ['new-categorie', 'new-user', 'new-article','new-gallery','new-slider','new-academic','new-level','new-news','new-sn'] %}
 {% set in_settings = ['setting-users','setting-parameter'] %}
 <div class="site-menubar">
 	<div class="site-menubar-body">
@@ -116,6 +116,11 @@
 								<li class="site-menu-item {% if active == 'new-slider'  %}active{% endif %}">
 									<a class="animsition-link" href="{{path('slider_new')}}">
 										<span class="site-menu-title">Slider</span>
+									</a>
+								</li>
+								<li class="site-menu-item {% if active == 'new-sn'  %}active{% endif %}">
+									<a class="animsition-link" href="{{path('social_network_new')}}">
+										<span class="site-menu-title">Réseaux sociaux</span>
 									</a>
 								</li>
 								<li class="site-menu-item {% if active == 'new-user'  %}active{% endif %}">
