@@ -27,7 +27,7 @@
               </a>
               <div class="text bg-white p-4">
                 <h3 class="heading"><a href="{{path('new_show',{'id': item.id})}}">{{item.title}}</a></h3>
-                {{ (item.content|striptags|raw > 150) ? item.content|striptags|raw|slice(0,150) ~ ' ... ' : item.content|striptags|raw   }}
+                {{ (item.content|striptags|raw|length > 150) ? item.content|striptags|raw|slice(0,150) ~ ' ... ' : item.content|striptags|raw   }}
                 <div class="d-flex align-items-center mt-4">
 	                <p class="mb-0"><a href="{{ path('new_show',{'id':item.id}) }}" class="btn btn-secondary">Lire la suite <span class="ion-ios-arrow-round-forward"></span></a></p>
 	                {# <p class="ml-auto mb-0">

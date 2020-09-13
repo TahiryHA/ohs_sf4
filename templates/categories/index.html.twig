@@ -18,7 +18,7 @@
           {% for item in regions|sort|reverse %}
                     <div class="col-md-6 col-lg-4 ftco-animate">
             <div class="blog-entry">
-              <a href="{{path('annonce_show',{'id': item.id})}}" class="block-20 d-flex align-items-end" style="background-image: url('{{vich_uploader_asset(item)}}');">
+              <a href="{{path('annonce_show',{'id': item.id})}}" class="block-20 d-flex align-items-end" style="background-image: url('{{vich_uploader_asset(item) ? vich_uploader_asset(item) : "http://placehold.it/790x530"}}');">
 								<div class="meta-date text-center p-2">
                   <span class="day">{{ item.createdAt|date('d') }}</span>
                   <span class="mos">{{ item.createdAt|date('m') }}</span>
@@ -27,7 +27,7 @@
               </a>
               <div class="text bg-white p-4">
                 <h3 class="heading"><a href="{{path('annonce_show',{'id': item.id})}}">{{item.title}}</a></h3>
-                {{item.content|raw}}
+                {{ (item.content|striptags|raw|length > 150) ? item.content|striptags|raw|slice(0,150) ~ ' ... ' : item.content|striptags|raw   }}
                 <div class="d-flex align-items-center mt-4">
 	                <p class="mb-0"><a href="{{ path('annonce_show',{'id':item.id}) }}" class="btn btn-secondary">Lire la suite <span class="ion-ios-arrow-round-forward"></span></a></p>
 	                {# <p class="ml-auto mb-0">
