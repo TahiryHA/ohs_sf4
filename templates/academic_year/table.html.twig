@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -13,8 +13,8 @@
                 <td>{{ academic_year.id }}</td>
                 <td>{{ academic_year.name }}</td>
                 <td>
-                    <a href="{{ path('academic_year_show', {'id': academic_year.id}) }}">show</a>
-                    <a href="{{ path('academic_year_edit', {'id': academic_year.id}) }}">edit</a>
+                    <a href="{{ path('academic_year_show', {'id': academic_year.id}) }}">Afficher</a>
+                    <a href="{{ path('academic_year_edit', {'id': academic_year.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

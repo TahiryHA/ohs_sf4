@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>Classe</th>
-                <th>Anné2 scolaire</th>
+                <th>Année scolaire</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -13,8 +13,8 @@
                 <td>{{ level.name }}</td>
                 <td>{{ level.academicYear|map(ay => ay.name)|join(', ') }}</td>
                 <td>
-                    <a href="{{ path('level_show', {'id': level.id}) }}">show</a>
-                    <a href="{{ path('level_edit', {'id': level.id}) }}">edit</a>
+                    <a href="{{ path('level_show', {'id': level.id}) }}">Afficher</a>
+                    <a href="{{ path('level_edit', {'id': level.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

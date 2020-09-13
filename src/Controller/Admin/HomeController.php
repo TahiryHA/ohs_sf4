@@ -42,18 +42,27 @@ class HomeController extends AbstractController
         $categories = $em->createQueryBuilder('c')->select('count(c.id)')
             ->from('App:Categories', 'c')
             ->getQuery()->getSingleScalarResult();
+        
+        $levels = $em->createQueryBuilder('c')->select('count(c.id)')
+            ->from('App:Level', 'c')
+            ->getQuery()->getSingleScalarResult();
     
 
         $users = $em->createQueryBuilder('c')->select('count(c.id)')
             ->from('App:User', 'c')
-            ->where('c.roles LIKE :role')
-            ->setParameter('role','%ROLE_USER%')
+            ->where('c.roles LIKE :t OR c.roles LIKE :s OR c.roles LIKE :u')
+            ->setParameter('t','%ROLE_TEACHER%')
+            ->setParameter('s','%ROLE_STUDENT%')
+            ->setParameter('u','%ROLE_USER%')
+
+
             ->getQuery()->getSingleScalarResult();
 
         return [
             'articles' => $articles,
             'categories' => $categories,
-            'users' => $users
+            'users' => $users,
+            'levels' => $levels
 
         ];
     }

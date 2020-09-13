@@ -17,8 +17,8 @@
                 <td>{{ article.categories|map(c => c.name)|join(', ') }}</td>
                 {# <td>{{ article.content|raw }}</td> #}
                 <td>
-                    <a href="{{ path('articles_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('articles_edit', {'id': article.id}) }}">edit</a>
+                    {# <a href="{{ path('articles_show', {'id': article.id}) }}">show</a> #}
+                    <a href="{{ path('articles_edit', {'id': article.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

@@ -21,7 +21,8 @@
 
 
 	</section>
-	{# <section class="ftco-services ftco-no-pb">
+	{% if is_granted('ROLE_STUDENT') or is_granted('ROLE_TEACHER')%}
+		<section class="ftco-services ftco-no-pb">
 		<div class="container-wrap">
 			<div class="row no-gutters">
 				<div class="col-md-3 d-flex services align-self-stretch pb-4 px-4 ftco-animate bg-primary">
@@ -30,8 +31,8 @@
 							<span class="flaticon-teacher"></span>
 						</div>
 						<div class="media-body p-2 mt-3">
-							<h3 class="heading">Certified Teachers</h3>
-							<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+							<a href="{{path('level_show',{'id' : app.user.level|map( l => l.id )|join(', ')})}}"><h3 class="heading"> Actualités</h3></a> 
+							<p>Réster informer des nouvelles pour la classe de {{ app.user.level|map( l => l.name )|join(', ') }}</p>
 						</div>
 					</div>
 				</div>
@@ -70,7 +71,57 @@
 				</div>
 			</div>
 		</div>
-	</section> #}
+	</section>
+
+	<section class="ftco-section bg-light">
+		<div class="container">
+			<div class="row justify-content-center mb-5 pb-2">
+				<div class="col-md-8 text-center heading-section ftco-animate">
+					<h2 class="mb-4">
+						<span>Annonces</span>
+						{{ app.user.level|map( l => l.name )|join(', ') }}</h2>
+					<p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
+				</div>
+			</div>
+			<div class="row">
+				{% for item in data.news|sort|reverse %}
+					<div class="col-md-6 col-lg-4 ftco-animate">
+					<div class="blog-entry">
+						<a href="{{path('new_show',{'id' : item.id})}}" class="block-20 d-flex align-items-end" style="background-image: url('{{vich_uploader_asset(item)}}');">
+							<div class="meta-date text-center p-2">
+								<span class="day">{{ item.createdAt|date('d') }}</span>
+								<span class="mos">{{ item.createdAt|date('m') }}</span>
+								<span class="yr">{{ item.createdAt|date('y') }}</span>
+							</div>
+						</a>
+						<div class="text bg-white p-4">
+							<h3 class="heading">
+								<a href="{{path('new_show',{'id' : item.id})}}">{{item.title}}</a>
+							</h3>
+							<p>{{item.content|raw}}</p>
+							<div class="d-flex align-items-center mt-4">
+								<p class="mb-0">
+									<a href="{{path('new_show',{'id' : item.id})}}" class="btn btn-secondary">Lire la suite
+										<span class="ion-ios-arrow-round-forward"></span>
+									</a>
+								</p>
+								{# <p class="ml-auto mb-0">
+									<a href="#" class="mr-2">Admin</a>
+									<a href="#" class="meta-chat">
+										<span class="icon-chat"></span>
+										3</a>
+								</p> #}
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% endif %}
+
+	
 
 	<section class="ftco-section bg-light">
 		<div class="container">

@@ -55,6 +55,23 @@
               </div>
             </div>
           </div>
+
+          <div class="col-xl-3 col-md-6 info-panel" style="cursor:pointer;" onclick="window.location.href='{{path('level_index')}}'">
+            <div class="card card-shadow">
+              <div class="card-block bg-white p-20">
+                <button type="button" class="btn btn-floating btn-sm btn-danger">
+                  <i class="icon fa-money"></i>
+                </button>
+                <span class="ml-15 font-weight-400">CLASSES</span>
+                <div class="content-text text-center mb-0">
+                  <i class="text-success icon wb-triangle-down font-size-20">
+              </i>
+                  <span class="font-size-40 font-weight-100">{{data.levels}}</span>
+                  {# <p class="blue-grey-400 font-weight-100 m-0">+45% From previous month</p> #}
+                </div>
+              </div>
+            </div>
+          </div>
           
           <div class="col-xl-3 col-md-6 info-panel" style="cursor:pointer;" onclick="window.location.href='{{path('admin_users')}}'">
             <div class="card card-shadow">

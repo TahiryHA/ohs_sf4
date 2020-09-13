@@ -21,8 +21,8 @@
                 <td>{{ parameter.socialNetwork ? parameter.socialNetwork|json_encode : '' }}</td>
                 <td>{{ parameter.about }}</td>
                 <td>
-                    <a href="{{ path('parameter_show', {'id': parameter.id}) }}">show</a>
-                    <a href="{{ path('parameter_edit', {'id': parameter.id}) }}">edit</a>
+                    <a href="{{ path('parameter_show', {'id': parameter.id}) }}">Afficher</a>
+                    <a href="{{ path('parameter_edit', {'id': parameter.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

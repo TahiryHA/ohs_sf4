@@ -8,10 +8,10 @@
     )) }}
 
 {% endblock %} 
-{% block body %}
-    <h1>Create new Parameter</h1>
-
-    {{ include('parameter/_form.html.twig') }}
-
-    <a href="{{ path('parameter_index') }}">back to list</a>
+{% block page %}
+ <!-- Panel Full Example -->
+    {{ form_start(form) }}
+            {% include 'parameter/_form.html.twig' with {form: form} %}
+    {{ form_end(form) }}
+    <!-- End Panel Full Example -->
 {% endblock %}

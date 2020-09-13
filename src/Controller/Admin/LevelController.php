@@ -21,7 +21,7 @@ class LevelController extends AbstractController
      */
     public function index(LevelRepository $levelRepository): Response
     {
-        return $this->render('level/index.html.twig', [
+        return $this->render('level/backup/index.html.twig', [
             'levels' => $levelRepository->findAll(),
         ]);
     }

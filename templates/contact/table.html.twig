@@ -21,8 +21,8 @@
 					<td>{{ contact.message }}</td>
 					<td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 					<td>
-						<a href="{{ path('contact_show', {'id': contact.id}) }}">show</a>
-						<a href="{{ path('contact_edit', {'id': contact.id}) }}">edit</a>
+						<a href="{{ path('contact_show', {'id': contact.id}) }}">Afficher</a>
+						<a href="{{ path('contact_edit', {'id': contact.id}) }}">Modifier</a>
 					</td>
 				</tr>
 			{% else %}

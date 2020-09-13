@@ -10,11 +10,23 @@ annonce_show:
     en: /{id}/annonce
   controller: App\Controller\DefaultController::annonce_show
 
+new_show:
+  path:
+    fr: /{id}/new
+    en: /{id}/new
+  controller: App\Controller\DefaultController::new_show
+
 region_show:
   path:
     fr: /{id}/region
     en: /{id}/region
   controller: App\Controller\DefaultController::region_show
+
+level_show:
+  path:
+    fr: /{id}/class
+    en: /{id}/class
+  controller: App\Controller\DefaultController::level_show
 
 
 teachers_index:

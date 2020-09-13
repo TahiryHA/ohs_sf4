@@ -23,9 +23,19 @@
 				<li class="nav-item {% if active == 'contact' %}active{% endif %}">
 					<a href="{{path('contact_new')}}" class="nav-link">Contact</a>
 				</li>
-				<li class="nav-item {% if active == 'contact' %}active{% endif %}">
-					<a href="{{path('app_login')}}" class="nav-link">Espace membre</a>
-				</li>
+				
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+					<li class="nav-item {% if active == 'login' %}active{% endif %}">
+						<a href="{{path('app_login')}}" class="nav-link">Connécté en tant que <b>{{app.user.username}}</b> </a>
+					</li>
+					<li class="nav-item {% if active == 'logout' %}active{% endif %}">
+						<a href="{{path('app_logout')}}" class="nav-link text-danger">Logout</a>
+					</li>
+				{% else %}
+					<li class="nav-item {% if active == 'area' %}active{% endif %}">
+						<a href="{{path('app_login')}}" class="nav-link">Espace membre</a>
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 	</div>

@@ -11,23 +11,25 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
 use App\Entity\User;
+use App\Entity\Level;
 use App\Entity\Slider;
 use App\Entity\Gallery;
 use App\Entity\Articles;
 use App\Entity\Categories;
 use App\Service\Cart\CartService;
+use App\Repository\UserRepository;
 use App\Repository\ArticlesRepository;
 use App\Repository\ParameterRepository;
 use App\Repository\CategoriesRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends AbstractController
 {
@@ -59,29 +61,56 @@ class DefaultController extends AbstractController
     public function getData(EntityManagerInterface $em)
     {
 
-        $now = date_format(new \DateTime('now'),'Y-m-d');
+        $now = date_format(new \DateTime('now'), 'Y-m-d');
 
         $doc = $this->getDoctrine();
 
         $sliders = $doc->getRepository(Slider::class)->findAll();
-        $annonces = $doc->getRepository(Articles::class)->findBy([],[],3);
+        $annonces = $doc->getRepository(Articles::class)->findBy([], [], 3);
         $teach = $doc->getRepository(User::class)->findAll();
-        $galleries = $doc->getRepository(Gallery::class)->findBy([],[],4);
+        $galleries = $doc->getRepository(Gallery::class)->findBy([], [], 4);
+
+        $news = [];
+
+        if ($this->getuser()) {
+            $role = [];
+            foreach ($this->getUser()->getRoles() as $key => $value) {
+                $role = $value;
+            }
+
+            if ($role == 'ROLE_STUDENT') {
+                $levels = $this->getUser()->getLevel();
+
+                $level = [];
+                foreach ($levels as $key => $value) {
+                    $level = $value->getId();
+                }
+                if ($level) {
+                    $mylevel = $doc->getRepository(Level::class)->findOneBy(['id' => $level], [], 3);
+
+                foreach ($mylevel->getNews() as $key => $level) {
+                    $news[] = $level;
+                }
+                    # code...
+                }
+            }
+        }
+
 
         $teachers = [];
 
         $roles = [
             'ROLE_TEACHER' => 'Enseignant'
         ];
-        
+
         foreach ($teach as $key => $value) {
-      
+
             // get the UploaderHelper service...
-       
+
             foreach ($value->getRoles() as $role) {
-       
+
                 if ($role == 'ROLE_TEACHER') {
-                    $teachers [] = [
+                    $teachers[] = [
                         'src' => $this->helper->asset($value),
                         'username' => $value->getUsername(),
                         'about' => $value->getAbout(),
@@ -89,17 +118,18 @@ class DefaultController extends AbstractController
                     ];
                 }
             }
-            
         }
         return [
             'sliders' => $sliders,
             'annonces' => $annonces,
+            'news' => $news,
             'teachers' => $teachers,
             'galleries' => $galleries
         ];
     }
 
-    public function teachers_index(UserRepository $repo){
+    public function teachers_index(UserRepository $repo)
+    {
 
         $teach = $repo->findAll();
         $teachers = [];
@@ -107,15 +137,15 @@ class DefaultController extends AbstractController
         $roles = [
             'ROLE_TEACHER' => 'Enseignant'
         ];
-        
+
         foreach ($teach as $key => $value) {
-      
+
             // get the UploaderHelper service...
-       
+
             foreach ($value->getRoles() as $role) {
-       
+
                 if ($role == 'ROLE_TEACHER') {
-                    $teachers [] = [
+                    $teachers[] = [
                         'src' => $this->helper->asset($value),
                         'username' => $value->getUsername(),
                         'about' => $value->getAbout(),
@@ -123,7 +153,6 @@ class DefaultController extends AbstractController
                     ];
                 }
             }
-            
         }
 
         return $this->render('teacher/index.html.twig', [
@@ -135,11 +164,10 @@ class DefaultController extends AbstractController
     }
 
     public function annonce_show(
-        Articles $article, 
+        Articles $article,
         ArticlesRepository $repo,
         CategoriesRepository $caterepo
-        ): Response
-    {
+    ): Response {
         return $this->render('articles/show.html.twig', [
             'annonce' => $article,
             'annonces' => $repo->findAll(),
@@ -149,9 +177,20 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    public function new_show(
+        News $news
+        ): Response
+    {
+        return $this->render('news/show.html.twig', [
+            'news' => $news,
+            'level' => $news->getLevel(),
+            'active' => 'home'
+        ]);
+    }
+
     public function region_show(PaginatorInterface $paginator, Categories $categories, Request $request): Response
     {
-        $result = $paginator->paginate($categories->getArticles(),$request->query->getInt('page', 1),6) ;
+        $result = $paginator->paginate($categories->getArticles(), $request->query->getInt('page', 1), 6);
 
         return $this->render('categories/index.html.twig', [
             'regions' => $result,
@@ -161,30 +200,44 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function left(CartService $cartService, $active  ){
+    public function level_show(PaginatorInterface $paginator, Level $level, Request $request): Response
+    {
+        $result = $paginator->paginate($level->getNews(), $request->query->getInt('page', 1), 6);
+
+        return $this->render('level/index.html.twig', [
+            'level' => $result,
+            'name' => $level->getName(),
+            'active' => 'home'
+
+        ]);
+    }
+
+    public function left(CartService $cartService, $active)
+    {
 
         $panierWithData = $cartService->getFullCart();
 
-        return $this->render("admin/common/left-sidebar.twig",[
+        return $this->render("admin/common/left-sidebar.twig", [
             'items' => $panierWithData,
             'active' => $active
         ]);
     }
 
-    public function about_index(ParameterRepository $repo){
+    public function about_index(ParameterRepository $repo)
+    {
 
-        return $this->render("default/about.html.twig",[
+        return $this->render("default/about.html.twig", [
             'data' => $repo->getParameter(),
             'active' => 'about'
         ]);
     }
 
-    public function footer(ParameterRepository $repo, ArticlesRepository $repoarticle){
+    public function footer(ParameterRepository $repo, ArticlesRepository $repoarticle)
+    {
 
-        return $this->render("common/footer.twig",[
+        return $this->render("common/footer.twig", [
             'data' => $repo->getParameter(),
             'annonces' => $repoarticle->findAll()
         ]);
     }
-
 }
