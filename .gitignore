@@ -55,4 +55,7 @@
 /public/media/cache/
 ###< liip/imagine-bundle ###
 
-/public/remark/html
+###> images ###
+/public/images/*
+/public/assets/img/articles/*
+###< lmages ###
